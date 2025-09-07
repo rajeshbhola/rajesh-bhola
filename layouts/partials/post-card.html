@@ -20,7 +20,7 @@
     <div class="flex flex-wrap gap-2">
         {{ with .Params.categories }}
             {{ range . }}
-            <a href="{{ printf "{{ .Site.BaseURL | relURL }}/categories/%s/" (. | urlize) | relURL }}" class="tag-pill text-purple-300 hover:text-white">
+            <a href="{{ .Site.BaseURL }}/categories/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
                 {{ . }}
             </a>
             {{ end }}
@@ -28,7 +28,7 @@
         
         {{ with .Params.tags }}
             {{ range . }}
-            <a href="{{ printf "{{ .Site.BaseURL | relURL }}/tags/%s/" (. | urlize) | relURL }}" class="tag-pill text-purple-300 hover:text-white">
+            <a href="{{ .Site.BaseURL }}/tags/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
                 {{ . }}
             </a>
             {{ end }}
