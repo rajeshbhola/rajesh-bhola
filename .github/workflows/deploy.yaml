@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  pages: write
+  id-token: write
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
@@ -19,10 +23,8 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-
       - name: Build Hugo site
         run: hugo --minify --themesDir ""
-
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
