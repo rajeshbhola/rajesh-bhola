@@ -1,14 +1,14 @@
 <header class="border-b border-gray-800">
     <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
-            <a href="/" class="flex items-center space-x-3 text-2xl font-bold text-white px-3 py-2 rounded-lg hover:text-gray-200 transition">
+            <a href="{{ .Site.BaseURL | relURL }}" class="flex items-center space-x-3 text-2xl font-bold text-white px-3 py-2 rounded-lg hover:text-gray-200 transition">
     
 <span>{{ .Site.Title }}</span>
 </a>
             
             <div class="hidden md:flex items-center space-x-6">
                 {{ range .Site.Menus.main }}
-                <a href="{{ .URL }}" class="text-gray-300 hover:text-purple-400 transition {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
+                <a href="{{ .URL | relURL }}" class="text-gray-300 hover:text-purple-400 transition {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
                     {{ .Name }}
                 </a>
                 {{ end }}
@@ -38,7 +38,7 @@
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
             {{ range .Site.Menus.main }}
-            <a href="{{ .URL }}" class="block text-gray-300 hover:text-purple-400 transition py-2 {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
+            <a href="{{ .URL | relURL }}" class="block text-gray-300 hover:text-purple-400 transition py-2 {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
                 {{ .Name }}
             </a>
             {{ end }}    
