@@ -25,7 +25,8 @@ jobs:
           node-version: '20'
 
       - name: Build Hugo site
-        run: hugo --minify
+        run: hugo --minify --themesDir ""
+
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
