@@ -1,0 +1,37 @@
+<article class="glass-card p-6 post-card" 
+         data-categories="{{ delimit .Params.categories "," }}"
+         data-tags="{{ delimit .Params.tags "," }}"
+         data-date="{{ .Date.Format "2006-01-02" }}">
+    <h2 class="text-xl font-bold mb-2">
+        <a href="{{ .Permalink }}" class="hover:text-purple-400 transition">
+            {{ .Title }}
+        </a>
+    </h2>
+    
+    <div class="text-sm text-gray-400 mb-3">
+        <time>{{ .Date.Format "2006-01-02" }}</time> • 
+        <span class="text-purple-400">{{ .Params.author | default .Site.Params.author }}</span>
+    </div>
+    
+    <p class="text-gray-300 mb-4 line-clamp-3">
+        {{ .Summary | plainify | truncate 150 }}
+    </p>
+    
+    <div class="flex flex-wrap gap-2">
+        {{ with .Params.categories }}
+            {{ range . }}
+            <a href="/categories/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
+                {{ . }}
+            </a>
+            {{ end }}
+        {{ end }}
+        
+        {{ with .Params.tags }}
+            {{ range . }}
+            <a href="/tags/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
+                {{ . }}
+            </a>
+            {{ end }}
+        {{ end }}
+    </div>
+</article>

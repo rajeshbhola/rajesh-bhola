@@ -1,0 +1,311 @@
+{{ define "main" }}
+<article class="max-w-4xl mx-auto">
+    <!-- Post Header -->
+    <header class="mb-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            {{ .Title }}
+        </h1>
+        
+        <div class="text-gray-400 flex items-center justify-center gap-4 flex-wrap text-sm">
+            <time>{{ .Date.Format "January 2, 2006" }}</time>
+            <span>•</span>
+            <span class="text-purple-400">{{ .Params.author | default .Site.Params.author }}</span>
+            <span>•</span>
+            <span>{{ .ReadingTime }} min read</span>
+        </div>
+        
+        <div class="mt-4 flex justify-center flex-wrap gap-2">
+            {{ with .Params.categories }}
+                {{ range . }}
+                <a href="/categories/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
+                    {{ . }}
+                </a>
+                {{ end }}
+            {{ end }}
+            
+            {{ with .Params.tags }}
+                {{ range . }}
+                <a href="/tags/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
+                    {{ . }}
+                </a>
+                {{ end }}
+            {{ end }}
+        </div>
+    </header>
+    
+    <!-- Reading progress bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
+        <div id="reading-progress" class="h-full bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-100" style="width: 0%"></div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="glass-card p-8 md:p-12">
+        <div class="post-content">
+            {{ .Content }}
+        </div>
+    </div>
+    
+    <!-- Author bio -->
+    {{ if .Params.author }}
+    <div class="mt-12 glass-card p-6">
+        <h3 class="text-lg font-bold mb-2 text-purple-400">About the Author</h3>
+        <p class="text-gray-300">{{ .Params.author }} is a contributor to {{ .Site.Title }}. Passionate about web development and sharing knowledge with the community.</p>
+    </div>
+    {{ end }}
+    
+    <!-- Navigation -->
+    <div class="mt-12 flex justify-between items-center">
+        {{ with .PrevInSection }}
+        <a href="{{ .Permalink }}" class="pagination-btn flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            <span class="hidden md:inline">Previous:</span>
+            <span class="ml-1 text-purple-300">{{ .Title | truncate 30 }}</span>
+        </a>
+        {{ else }}
+        <div></div>
+        {{ end }}
+        
+        {{ with .NextInSection }}
+        <a href="{{ .Permalink }}" class="pagination-btn flex items-center">
+            <span class="hidden md:inline">Next:</span>
+            <span class="ml-1 text-purple-300">{{ .Title | truncate 30 }}</span>
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+        {{ else }}
+        <div></div>
+        {{ end }}
+    </div>
+    
+    <!-- Related posts -->
+    {{ $related := .Site.RegularPages.Related . | first 3 }}
+    {{ with $related }}
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6 text-purple-400">Related Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {{ range . }}
+                {{ partial "post-card.html" . }}
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</article>
+
+<style>
+    /* Post content styling */
+    .post-content {
+        color: #e5e7eb;
+        line-height: 1.8;
+        font-size: 1.125rem;
+    }
+    
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6 {
+        color: #c084fc;
+        font-weight: bold;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
+    .post-content h1 { font-size: 2.5rem; }
+    .post-content h2 { font-size: 2rem; }
+    .post-content h3 { font-size: 1.75rem; }
+    .post-content h4 { font-size: 1.5rem; }
+    .post-content h5 { font-size: 1.25rem; }
+    .post-content h6 { font-size: 1.125rem; }
+    
+    .post-content p {
+        margin-bottom: 1.5rem;
+        color: #d1d5db;
+    }
+    
+    .post-content a {
+        color: #a78bfa;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s;
+    }
+    
+    .post-content a:hover {
+        color: #c084fc;
+    }
+    
+    .post-content strong {
+        color: #f3f4f6;
+        font-weight: 600;
+    }
+    
+    .post-content em {
+        color: #e5e7eb;
+        font-style: italic;
+    }
+    
+    .post-content ul,
+    .post-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 2rem;
+        color: #d1d5db;
+    }
+    
+    .post-content ul {
+        list-style-type: disc;
+    }
+    
+    .post-content ol {
+        list-style-type: decimal;
+    }
+    
+    .post-content li {
+        margin-bottom: 0.5rem;
+        line-height: 1.7;
+    }
+    
+    .post-content ul ul,
+    .post-content ol ol,
+    .post-content ul ol,
+    .post-content ol ul {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .post-content blockquote {
+        border-left: 4px solid #7f3ff5;
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+        color: #9ca3af;
+        background: rgba(127, 63, 245, 0.05);
+        padding: 1rem 1.5rem;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    .post-content pre {
+        background: rgba(0, 0, 0, 0.5) !important;
+        border: 1px solid rgba(127, 63, 245, 0.2);
+        border-radius: 8px;
+        padding: 1.5rem;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+    
+    .post-content code {
+        font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+        font-size: 0.9em;
+    }
+    
+    .post-content :not(pre) > code {
+        background: rgba(127, 63, 245, 0.2);
+        color: #c084fc;
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-size: 0.875em;
+    }
+    
+    .post-content pre code {
+        color: #e5e7eb;
+        background: transparent;
+        padding: 0;
+    }
+    
+    .post-content table {
+        width: 100%;
+        margin-bottom: 1.5rem;
+        border-collapse: collapse;
+        overflow-x: auto;
+        display: block;
+    }
+    
+    .post-content table th,
+    .post-content table td {
+        padding: 0.75rem;
+        text-align: left;
+        border: 1px solid rgba(127, 63, 245, 0.2);
+    }
+    
+    .post-content table th {
+        background: rgba(127, 63, 245, 0.1);
+        color: #c084fc;
+        font-weight: bold;
+    }
+    
+    .post-content table tr:nth-child(even) {
+        background: rgba(127, 63, 245, 0.05);
+    }
+    
+    .post-content hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(127, 63, 245, 0.5), transparent);
+        margin: 2.5rem 0;
+    }
+    
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin: 2rem auto;
+        display: block;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .post-content figure {
+        margin: 2rem 0;
+    }
+    
+    .post-content figcaption {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Syntax highlighting for code blocks */
+    .post-content .language-javascript,
+    .post-content .language-js {
+        color: #fbbf24;
+    }
+    
+    .post-content .language-css {
+        color: #60a5fa;
+    }
+    
+    .post-content .language-html {
+        color: #fb923c;
+    }
+    
+    .post-content .language-bash,
+    .post-content .language-shell {
+        color: #34d399;
+    }
+    
+    .post-content .language-yaml,
+    .post-content .language-yml {
+        color: #f87171;
+    }
+    
+    /* Mobile responsive adjustments */
+    @media (max-width: 768px) {
+        .post-content {
+            font-size: 1rem;
+        }
+        
+        .post-content h1 { font-size: 2rem; }
+        .post-content h2 { font-size: 1.5rem; }
+        .post-content h3 { font-size: 1.25rem; }
+        
+        .post-content pre {
+            padding: 1rem;
+            font-size: 0.875rem;
+        }
+    }
+</style>
+{{ end }}

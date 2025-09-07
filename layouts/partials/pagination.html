@@ -1,0 +1,51 @@
+<nav class="flex justify-center items-center space-x-2">
+    {{ if .HasPrev }}
+        <a href="{{ .Prev.URL }}" class="pagination-btn">
+            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Previous
+        </a>
+    {{ end }}
+    
+    {{ $paginator := . }}
+    {{ $adjacent_links := 2 }}
+    {{ $max_links := (add (mul $adjacent_links 2) 1) }}
+    {{ $lower_limit := (add $adjacent_links 1) }}
+    {{ $upper_limit := (sub $paginator.TotalPages $adjacent_links) }}
+    
+    {{ range $paginator.Pagers }}
+        {{ $page_number_flag := false }}
+        
+        {{ if le $paginator.TotalPages $max_links }}
+            {{ $page_number_flag = true }}
+        {{ else if le .PageNumber $lower_limit }}
+            {{ if le .PageNumber $max_links }}
+                {{ $page_number_flag = true }}
+            {{ end }}
+        {{ else if ge .PageNumber $upper_limit }}
+            {{ if gt (add .PageNumber $max_links) $paginator.TotalPages }}
+                {{ $page_number_flag = true }}
+            {{ end }}
+        {{ else }}
+            {{ if and (ge .PageNumber (sub $paginator.PageNumber $adjacent_links)) (le .PageNumber (add $paginator.PageNumber $adjacent_links)) }}
+                {{ $page_number_flag = true }}
+            {{ end }}
+        {{ end }}
+        
+        {{ if $page_number_flag }}
+            <a href="{{ .URL }}" class="pagination-btn {{ if eq . $paginator }}active{{ end }}">
+                {{ .PageNumber }}
+            </a>
+        {{ end }}
+    {{ end }}
+    
+    {{ if .HasNext }}
+        <a href="{{ .Next.URL }}" class="pagination-btn">
+            Next
+            <svg class="w-5 h-5 inline-block ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </a>
+    {{ end }}
+</nav>
