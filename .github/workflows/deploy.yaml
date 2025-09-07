@@ -24,14 +24,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install NPM dependencies
-        run: |
-          npm install
-          npm install -g postcss postcss-cli autoprefixer
-
-      - name: Build Tailwind CSS
-        run: npm run build:css
-
       - name: Build Hugo site
         run: hugo --minify
 
