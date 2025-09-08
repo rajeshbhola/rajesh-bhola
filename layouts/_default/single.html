@@ -305,21 +305,55 @@
         color: #f87171;
     }
     
-    /* Fix scrolling background flash */
-    html, body {
+    /* Aggressive fix for white background flash */
+    html {
         background-color: #0f1419 !important;
-        background: linear-gradient(135deg, #0f1419 0%, #1e293b 50%, #0f1419 100%) !important;
+        background-image: linear-gradient(135deg, #0f1419 0%, #1e293b 50%, #0f1419 100%) !important;
+        background-attachment: fixed !important;
+        background-repeat: no-repeat !important;
         min-height: 100vh !important;
     }
     
-    /* Ensure consistent backgrounds */
-    * {
-        background-color: transparent;
+    body {
+        background-color: transparent !important;
+        background-image: none !important;
+        min-height: 100vh !important;
+        position: relative;
     }
     
-    /* Fix reading progress bar background */
-    .reading-progress-bg {
-        background-color: #374151 !important;
+    /* Override any potential white backgrounds */
+    *, *::before, *::after {
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+    
+    /* Specific overrides for common elements */
+    main, article, section, div, p, h1, h2, h3, h4, h5, h6 {
+        background-color: transparent !important;
+    }
+    
+    /* Glass card backgrounds - explicitly set */
+    .glass-card {
+        background: rgba(30, 41, 59, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    /* Post content background */
+    .post-content {
+        background-color: transparent !important;
+    }
+    
+    /* Fix any pre/code backgrounds */
+    .post-content pre {
+        background: rgba(0, 0, 0, 0.5) !important;
+    }
+    
+    /* Prevent flash during transitions */
+    * {
+        transition: none !important;
+        -webkit-transition: none !important;
+        -moz-transition: none !important;
+        -o-transition: none !important;
     }
 
     /* Mobile responsive adjustments */
