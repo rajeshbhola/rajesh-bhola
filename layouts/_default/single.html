@@ -101,6 +101,13 @@
     {{ end }}
 </article>
 
+<!-- Back to Top Button -->
+<button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-purple-600 hover:bg-purple-500 text-white rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none z-50">
+    <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+</button>
+
 <style>
     /* Post content styling */
     .post-content {
@@ -205,6 +212,42 @@
         font-size: 0.875rem;
         line-height: 1.6;
         font-weight: 400;
+    }
+    
+    /* Copy button styling */
+    .copy-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(127, 63, 245, 0.8);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        opacity: 0;
+        z-index: 10;
+    }
+    
+    .post-content pre:hover .copy-button {
+        opacity: 1;
+    }
+    
+    .copy-button:hover {
+        background: rgba(127, 63, 245, 1);
+        transform: scale(1.05);
+    }
+    
+    .copy-button.copied {
+        background: rgba(34, 197, 94, 0.8);
+    }
+    
+    /* Back to top button */
+    #back-to-top.show {
+        opacity: 1;
+        pointer-events: auto;
     }
     
     .post-content code {
@@ -372,41 +415,70 @@
 </style>
 
 <script>
-// Prevent white flash on page load - immediate
-document.documentElement.style.backgroundColor = '#0f1419';
-if (document.body) {
-    document.body.style.backgroundColor = 'transparent';
-}
-
-// Fix background flash and handle reading progress
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure backgrounds are correct
-    document.body.style.backgroundColor = 'transparent';
-    document.documentElement.style.backgroundColor = '#0f1419';
-    
     // Reading progress bar
     const progressBar = document.getElementById('reading-progress');
-    console.log('Progress bar element:', progressBar); // Debug log
+    const backToTopBtn = document.getElementById('back-to-top');
     
-    if (progressBar) {
-        // Initial setup
-        progressBar.style.width = '0%';
-        progressBar.style.background = 'linear-gradient(to right, #a855f7, #ec4899)';
+    function updateProgress() {
+        const totalHeight = document.body.scrollHeight - window.innerHeight;
+        const progress = (window.scrollY / totalHeight) * 100;
+        const clampedProgress = Math.max(0, Math.min(progress, 100));
         
-        function updateProgress() {
-            const totalHeight = document.body.scrollHeight - window.innerHeight;
-            const progress = (window.scrollY / totalHeight) * 100;
-            const clampedProgress = Math.max(0, Math.min(progress, 100));
+        if (progressBar) {
             progressBar.style.width = clampedProgress + '%';
-            console.log('Progress:', clampedProgress); // Debug log
         }
         
-        // Update on scroll
-        window.addEventListener('scroll', updateProgress);
-        
-        // Initial call
-        updateProgress();
+        // Show/hide back to top button
+        if (backToTopBtn) {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        }
     }
+    
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+    
+    // Back to top functionality
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
+    // Add copy buttons to code blocks
+    const codeBlocks = document.querySelectorAll('.post-content pre');
+    codeBlocks.forEach(function(block) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        button.addEventListener('click', function() {
+            const code = block.querySelector('code');
+            if (code) {
+                navigator.clipboard.writeText(code.textContent).then(function() {
+                    button.textContent = 'Copied!';
+                    button.classList.add('copied');
+                    setTimeout(function() {
+                        button.textContent = 'Copy';
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy text: ', err);
+                    button.textContent = 'Failed';
+                    setTimeout(function() {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            }
+        });
+        block.appendChild(button);
+    });
 });
 </script>
 {{ end }}
