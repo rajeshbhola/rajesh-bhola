@@ -305,26 +305,9 @@
         color: #f87171;
     }
     
-    /* Aggressive fix for white background flash */
-    html {
-        background-color: #0f1419 !important;
-        background-image: linear-gradient(135deg, #0f1419 0%, #1e293b 50%, #0f1419 100%) !important;
-        background-attachment: fixed !important;
-        background-repeat: no-repeat !important;
-        min-height: 100vh !important;
-    }
-    
+    /* Simple background fix - don't override the base layout */
     body {
         background-color: transparent !important;
-        background-image: none !important;
-        min-height: 100vh !important;
-        position: relative;
-    }
-    
-    /* Override potential white backgrounds - but preserve specific backgrounds */
-    *:not(.glass-card):not(#reading-progress):not(.bg-gradient-to-r):not(.tag-pill):not(.pagination-btn):not(pre):not(code) {
-        background-color: transparent !important;
-        background-image: none !important;
     }
     
     /* Glass card backgrounds - explicitly set */
