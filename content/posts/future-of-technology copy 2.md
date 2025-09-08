@@ -1,7 +1,7 @@
 ---
-title: "The Future of Technology: Trends to Watch in 2024"
+title: "The Future of Technology: Trends to Watch in 2025"
 date: 2023-05-17T09:00:00Z
-author: "Michael Chen"
+author: "Rajesh Bhola"
 categories: ["Technology"]
 tags: ["AI", "Blockchain", "IoT", "Future"]
 summary: "Explore the emerging technology trends that will shape our digital future in 2024 and beyond."
