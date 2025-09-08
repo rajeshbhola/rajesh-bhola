@@ -305,6 +305,23 @@
         color: #f87171;
     }
     
+    /* Fix scrolling background flash */
+    html, body {
+        background-color: #0f1419 !important;
+        background: linear-gradient(135deg, #0f1419 0%, #1e293b 50%, #0f1419 100%) !important;
+        min-height: 100vh !important;
+    }
+    
+    /* Ensure consistent backgrounds */
+    * {
+        background-color: transparent;
+    }
+    
+    /* Fix reading progress bar background */
+    .reading-progress-bg {
+        background-color: #374151 !important;
+    }
+
     /* Mobile responsive adjustments */
     @media (max-width: 768px) {
         .post-content {
@@ -321,4 +338,27 @@
         }
     }
 </style>
+
+<script>
+// Fix background flash and handle reading progress
+document.addEventListener('DOMContentLoaded', function() {
+    // Ensure body background is always set
+    document.body.style.backgroundColor = '#0f1419';
+    document.documentElement.style.backgroundColor = '#0f1419';
+    
+    // Reading progress bar
+    const progressBar = document.getElementById('reading-progress');
+    if (progressBar) {
+        window.addEventListener('scroll', function() {
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (window.scrollY / totalHeight) * 100;
+            progressBar.style.width = Math.min(progress, 100) + '%';
+        });
+    }
+});
+
+// Prevent white flash on page load
+document.documentElement.style.backgroundColor = '#0f1419';
+document.body.style.backgroundColor = '#0f1419';
+</script>
 {{ end }}
