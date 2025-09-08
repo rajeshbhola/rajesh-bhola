@@ -321,26 +321,44 @@
         position: relative;
     }
     
-    /* Override any potential white backgrounds */
-    *, *::before, *::after {
+    /* Override potential white backgrounds - but preserve specific backgrounds */
+    *:not(.glass-card):not(#reading-progress):not(.bg-gradient-to-r):not(.tag-pill):not(.pagination-btn):not(pre):not(code) {
         background-color: transparent !important;
         background-image: none !important;
-    }
-    
-    /* Specific overrides for common elements */
-    main, article, section, div, p, h1, h2, h3, h4, h5, h6 {
-        background-color: transparent !important;
     }
     
     /* Glass card backgrounds - explicitly set */
     .glass-card {
         background: rgba(30, 41, 59, 0.5) !important;
         backdrop-filter: blur(10px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Progress bar - ensure it's visible */
+    #reading-progress {
+        background: linear-gradient(to right, #a855f7, #ec4899) !important;
+        height: 100% !important;
+        transition: width 0.1s ease !important;
+    }
+    
+    /* Headings - ensure they're visible */
+    h1, h2, h3, h4, h5, h6 {
+        color: inherit !important;
+        background: transparent !important;
+    }
+    
+    /* Gradient text for title */
+    .bg-gradient-to-r {
+        background: linear-gradient(to right, #a855f7, #ec4899) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
+        color: transparent !important;
     }
     
     /* Post content background */
     .post-content {
         background-color: transparent !important;
+        color: #e5e7eb !important;
     }
     
     /* Fix any pre/code backgrounds */
@@ -348,12 +366,9 @@
         background: rgba(0, 0, 0, 0.5) !important;
     }
     
-    /* Prevent flash during transitions */
-    * {
-        transition: none !important;
-        -webkit-transition: none !important;
-        -moz-transition: none !important;
-        -o-transition: none !important;
+    .post-content :not(pre) > code {
+        background: rgba(127, 63, 245, 0.2) !important;
+        color: #c084fc !important;
     }
 
     /* Mobile responsive adjustments */
@@ -374,25 +389,41 @@
 </style>
 
 <script>
+// Prevent white flash on page load - immediate
+document.documentElement.style.backgroundColor = '#0f1419';
+if (document.body) {
+    document.body.style.backgroundColor = 'transparent';
+}
+
 // Fix background flash and handle reading progress
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure body background is always set
-    document.body.style.backgroundColor = '#0f1419';
+    // Ensure backgrounds are correct
+    document.body.style.backgroundColor = 'transparent';
     document.documentElement.style.backgroundColor = '#0f1419';
     
     // Reading progress bar
     const progressBar = document.getElementById('reading-progress');
+    console.log('Progress bar element:', progressBar); // Debug log
+    
     if (progressBar) {
-        window.addEventListener('scroll', function() {
+        // Initial setup
+        progressBar.style.width = '0%';
+        progressBar.style.background = 'linear-gradient(to right, #a855f7, #ec4899)';
+        
+        function updateProgress() {
             const totalHeight = document.body.scrollHeight - window.innerHeight;
             const progress = (window.scrollY / totalHeight) * 100;
-            progressBar.style.width = Math.min(progress, 100) + '%';
-        });
+            const clampedProgress = Math.max(0, Math.min(progress, 100));
+            progressBar.style.width = clampedProgress + '%';
+            console.log('Progress:', clampedProgress); // Debug log
+        }
+        
+        // Update on scroll
+        window.addEventListener('scroll', updateProgress);
+        
+        // Initial call
+        updateProgress();
     }
 });
-
-// Prevent white flash on page load
-document.documentElement.style.backgroundColor = '#0f1419';
-document.body.style.backgroundColor = '#0f1419';
 </script>
 {{ end }}
