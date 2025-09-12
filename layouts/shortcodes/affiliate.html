@@ -1,0 +1,5 @@
+{{ $url := .Get "url" }}
+{{ $text := .Get "text" | default "Check it out" }}
+{{ $class := .Get "class" | default "affiliate-link" }}
+
+{{ partial "affiliate-link.html" (dict "url" $url "text" $text "class" $class "Site" .Site) }}

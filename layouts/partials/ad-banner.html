@@ -1,0 +1,15 @@
+{{ if .Site.Params.googleAdSenseID }}
+<!-- AdSense Banner Ad -->
+<div class="ad-container my-8 text-center">
+  <div class="text-xs text-gray-400 mb-2">Advertisement</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="{{ .Site.Params.googleAdSenseID }}"
+       data-ad-slot="XXXXXXXXX"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+{{ end }}

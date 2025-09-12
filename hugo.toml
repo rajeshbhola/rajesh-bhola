@@ -8,6 +8,17 @@ copyright = "© 2025 Rajesh Bhola ... All rights reserved."
   author = "Rajesh Bhola"
   description = "Discover our most recent articles and insights"
   
+  # Google Analytics
+  googleAnalytics = "G-XXXXXXXXXX"  # Replace with your GA4 tracking ID
+  
+  # Google AdSense
+  googleAdSenseID = "ca-pub-XXXXXXXXXX"  # Replace with your AdSense Publisher ID
+  
+  # Affiliate Settings
+  [params.affiliate]
+    amazon = "your-amazon-tag"  # Replace with your Amazon Associates tag
+    disclaimer = "This site contains affiliate links. We may earn a commission if you click on a link and make a purchase."
+  
 [menu]
   [[menu.main]]
     name = "Home"

@@ -1,0 +1,16 @@
+{{ $asin := .Get "asin" }}
+{{ $text := .Get "text" | default "Buy on Amazon" }}
+{{ $amazon_tag := .Site.Params.affiliate.amazon }}
+
+{{ if and $asin $amazon_tag }}
+  {{ $url := printf "https://www.amazon.com/dp/%s?tag=%s" $asin $amazon_tag }}
+  <a href="{{ $url }}" 
+     class="amazon-affiliate-link inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-lg hover:from-orange-500 hover:to-orange-700 transition-all duration-200 transform hover:scale-105"
+     target="_blank"
+     rel="nofollow noopener">
+    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M13.582 8.182C11.934 8.182 10.78 9.155 10.78 10.394c0 .635.365 1.097.912 1.097.731 0 1.279-.731 1.279-1.828v-.481c0-.365-.091-.635-.389-.635zm7.936 4.244c-1.462 1.097-3.564 1.689-5.395 1.689-2.555 0-4.851-1.006-6.588-2.647-.137-.137-.014-.319.152-.213 1.916 1.143 4.289 1.828 6.74 1.828 1.645 0 3.473-.342 5.145-1.051.251-.106.457.166.274.319l.672.075zM20.885 17.562c-.091-.137-.595-.137-.82-.045-.365.137-.502.456-.502.684 0 .319.274.548.639.548.228 0 .456-.091.593-.274.182-.228.182-.594.09-.913z"/>
+    </svg>
+    {{ $text }}
+  </a>
+{{ end }}

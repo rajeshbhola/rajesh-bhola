@@ -36,11 +36,21 @@
     </div>
 </div>
 
+<!-- Top Banner Ad -->
+{{ partial "ad-banner.html" . }}
+
 <!-- Posts Grid -->
 <div class="posts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
     {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
-    {{ range $paginator.Pages }}
-        {{ partial "post-card.html" . }}
+    {{ range $index, $post := $paginator.Pages }}
+        {{ partial "post-card.html" $post }}
+        
+        <!-- Insert ad after every 6 posts -->
+        {{ if and (gt $index 0) (eq (mod (add $index 1) 6) 0) }}
+        <div class="col-span-full">
+            {{ partial "ad-banner.html" $ }}
+        </div>
+        {{ end }}
     {{ end }}
     
     {{ if eq (len $paginator.Pages) 0 }}

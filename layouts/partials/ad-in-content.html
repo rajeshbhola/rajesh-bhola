@@ -1,0 +1,15 @@
+{{ if .Site.Params.googleAdSenseID }}
+<!-- AdSense In-Content Ad -->
+<div class="ad-container my-6">
+  <div class="text-xs text-gray-400 mb-2 text-center">Advertisement</div>
+  <ins class="adsbygoogle"
+       style="display:block; text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="{{ .Site.Params.googleAdSenseID }}"
+       data-ad-slot="ZZZZZZZZZ"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
+{{ end }}
