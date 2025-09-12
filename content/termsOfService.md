@@ -8,126 +8,191 @@ date: 2025-01-08
 
 *Last updated: January 8, 2025*
 
-Welcome to Rajesh Bhola's Blog (https://rajeshbhola.github.io/rajesh-bhola/). These Terms of Service ("Terms") govern your use of our website and services. By accessing or using our website, you agree to be bound by these Terms.
+Welcome to Rajesh Bhola's Blog (https://rajeshbhola.github.io/rajesh-bhola/). These Terms of Service ("Terms") govern your use of our static blog website. By accessing or using our website, you agree to be bound by these Terms.
+
+**Important**: This is a static blog hosted on GitHub Pages with no user registration, comments, or interactive features.
 
 ## 1. Acceptance of Terms
 
-By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
+By accessing and using this static blog website, you accept and agree to be bound by these terms. If you do not agree, please do not use this website.
 
 ## 2. Description of Service
 
-Rajesh Bhola's Blog is a personal blog that provides:
+Rajesh Bhola's Blog is a static personal blog that provides:
 - Articles and tutorials on web development, technology, and programming
 - Educational content about software engineering
 - Personal insights and opinions on technology trends
 - Open-source code examples and resources
+- **Monetized Content**: Includes affiliate links and advertisements
 
-## 3. Use License
+## 3. Use License & Content Usage
 
-Permission is granted to temporarily access and view the materials on this website for personal, non-commercial transitory viewing only. This license shall automatically terminate if you violate any of these restrictions.
+Permission is granted to access and view the materials on this static blog for personal, educational, and non-commercial purposes.
 
 ### You may:
 - Read and share our content for educational purposes
 - Link to our articles with proper attribution
-- Use code examples in your projects (unless otherwise specified)
+- Use code examples in your personal/educational projects (unless otherwise specified)
+- Reference our content in your own work with proper citation
 
 ### You may not:
-- Reproduce, duplicate, copy, sell, or resell our content without permission
-- Use our content for commercial purposes without authorization
-- Modify or create derivative works without consent
+- Reproduce, duplicate, copy, sell, or commercially redistribute our content without permission
 - Remove copyright notices or attributions
+- Use our content for commercial purposes without authorization
+- Scrape or automatically download our content
+- Modify our content and redistribute as your own
 
-## 4. User Content and Comments
+## 4. Static Blog Nature
 
-If we enable comments or user-generated content in the future:
+**No User Content**: This is a static blog with no user registration or content submission:
+- No comments system or user accounts
+- No user-generated content capabilities
+- No data storage or user profiles
+- Content is read-only for visitors
 
-### 4.1 Your Responsibilities
-- You are responsible for all content you post
-- Content must not violate any laws or infringe on others' rights
-- Content must not contain spam, malware, or harmful material
-- You must respect other users and maintain civil discourse
+**Third-Party Interactions**: Any interactions occur through external platforms (GitHub, YouTube, social media).
 
-### 4.2 Our Rights
-- We reserve the right to moderate, edit, or remove any content
-- We may terminate accounts for violations of these terms
-- We are not responsible for user-generated content
+## 5. Monetization & Affiliate Disclosure
 
-## 5. Intellectual Property
+**Transparency Notice**: This blog is monetized through:
 
-### 5.1 Our Content
-All content on this website, including but not limited to text, graphics, logos, images, and software, is the property of Rajesh Bhola or its content suppliers and is protected by copyright and other intellectual property laws.
+### 5.1 Affiliate Marketing
+- **Amazon Associates**: Product links may generate commissions
+- **Other Affiliate Programs**: Various affiliate partnerships
+- **Disclosure**: Affiliate relationships are disclosed where required
+- **Independence**: Affiliate relationships do not compromise content integrity
 
-### 5.2 Code and Examples
-Code examples and snippets provided on this blog are generally available for educational use. Specific licensing terms will be mentioned where applicable.
+### 5.2 Advertising
+- **Google AdSense**: Displays third-party advertisements
+- **Targeted Ads**: Based on your browsing behavior and interests
+- **Ad Blockers**: You may use ad blockers, but this affects our revenue
 
-### 5.3 Third-Party Content
-We may include content from third parties with proper attribution. Such content remains the property of its respective owners.
+### 5.3 Revenue Use
+- Earnings support website maintenance and content creation
+- Revenue helps fund free educational content
+- No premium content or paywalls
 
-## 6. Privacy Policy
+## 6. Intellectual Property
 
-Your privacy is important to us. Please refer to our Privacy Policy for information on how we collect, use, and protect your personal information.
+### 6.1 Our Content
+All original content is the property of Rajesh Bhola and protected by copyright laws:
+- Blog articles and tutorials
+- Original code examples and projects
+- Design and layout elements
+- Graphics and visual content
 
-## 7. Disclaimers
+### 6.2 Code Examples
+- Generally available for educational use
+- Specific licensing mentioned where applicable
+- Attribution appreciated but not always required
+- Commercial use may require permission
 
-### 7.1 Content Accuracy
-- Information is provided "as is" without warranties
+### 6.3 Third-Party Content
+- Proper attribution provided for external content
+- Images and resources from stock/free sources
+- Third-party content remains property of respective owners
+
+## 7. Privacy Policy
+
+Your privacy is important. Our Privacy Policy explains our limited data collection as a static blog and third-party service usage.
+
+## 8. Disclaimers
+
+### 8.1 Content Accuracy
+- Information provided "as is" without warranties
 - We strive for accuracy but cannot guarantee error-free content
-- Technical information may become outdated
-- Always verify information independently
+- Technology information may become outdated quickly
+- Always verify information independently before implementation
 
-### 7.2 Educational Purpose
+### 8.2 Educational Purpose
 - Content is for educational and informational purposes only
 - Not professional advice unless explicitly stated
-- Use information at your own risk
+- Programming examples should be tested before production use
+- Use all information at your own risk
 
-## 8. Limitation of Liability
+### 8.3 Affiliate & Advertising Disclaimers
+- Affiliate commissions may influence product recommendations
+- Advertisements are provided by third parties
+- We do not control ad content or targeting
+- Product recommendations are based on personal experience/research
 
-In no event shall Rajesh Bhola or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on this website.
+## 9. Limitation of Liability
 
-## 9. External Links
+**Static Blog Limitations**: As a static blog with no backend services:
+- No liability for third-party service failures (GitHub Pages, Google services)
+- No responsibility for external link content
+- No warranties on code examples or tutorials
+- No liability for affiliate link issues or advertising content
+- Users assume all risks from using provided information
 
-Our website may contain links to external sites. We have no control over the nature, content, and availability of those sites. The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them.
+## 10. External Links & Third-Party Services
 
-## 10. Prohibited Uses
+**Static Blog Context**:
+- External links for educational and reference purposes
+- Affiliate links clearly disclosed
+- Third-party services (Google, GitHub) governed by their own terms
+- No control over external site availability or content
+- Links do not imply endorsement unless specifically stated
 
-You may not use our website:
-- For any unlawful purpose or to solicit others to act unlawfully
-- To violate any international, federal, provincial, or state regulations, rules, laws, or local ordinances
-- To infringe upon or violate our intellectual property rights or the intellectual property rights of others
-- To harass, abuse, insult, harm, defame, slander, disparage, intimidate, or discriminate
-- To submit false or misleading information
-- To upload or transmit viruses or any other type of malicious code
+## 11. Prohibited Uses
 
-## 11. Termination
+**For This Static Blog**, you may not:
+- Use content for unlawful purposes
+- Violate applicable laws or regulations
+- Infringe on intellectual property rights
+- Scrape or automatically download content for commercial use
+- Attempt to hack, exploit, or overload the website
+- Use content in ways that compete directly with our blog
+- Remove attribution from code examples or articles
+- Circumvent affiliate links to deny us commissions
 
-We may terminate or suspend your access immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
+**Note**: Since this is a static site, most prohibited actions are technically prevented.
 
-## 12. Modifications to Terms
+## 12. Termination & Access
 
-We reserve the right to revise these Terms at any time without notice. By using this website, you are agreeing to be bound by the then current version of these Terms of Service.
+**Static Blog Nature**: 
+- No user accounts to terminate
+- Access control limited to hosting provider (GitHub Pages)
+- We may update content or take the site offline at any time
+- No individual user access management capabilities
 
-## 13. Governing Law
+## 13. Modifications to Terms
 
-These Terms shall be governed by and construed in accordance with the laws of India, and you submit to the jurisdiction of the courts located in India for the resolution of any disputes.
+We may update these Terms at any time to reflect:
+- Changes in our monetization approach
+- Updates to third-party services
+- Legal requirement changes
+- Website functionality modifications
 
-## 14. Severability
+Changes are effective immediately upon posting. Continued use constitutes acceptance.
 
-If any part of these Terms is held invalid or unenforceable, that part will be construed to reflect the parties' original intent, and the remaining portions will remain in full force and effect.
+## 14. Governing Law
 
-## 15. Contact Information
+These Terms are governed by the laws of India. Any disputes will be resolved in Indian jurisdiction.
 
-If you have any questions about these Terms of Service, please contact us at:
+## 15. Severability
 
-**Email**: [Your Email Address]
+If any provision is found invalid, the remainder of these Terms remains in full effect.
+
+## 16. Contact Information
+
+For questions about these Terms of Service:
+
 **GitHub**: https://github.com/rajeshbhola
 **YouTube**: https://www.youtube.com/@bholarajesh
+**Email**: Contact via GitHub or social media
 
-## 16. Acknowledgment
+## 17. Acknowledgment
 
-By using our website, you acknowledge that you have read these Terms of Service and agree to be bound by them.
+By using our static blog, you acknowledge:
+- Reading and understanding these Terms
+- Awareness of the blog's monetized nature
+- Agreement to affiliate link and advertising presence
+- Understanding of our limited liability as a static site
+- Acceptance of third-party service terms
 
 ---
 
-Thank you for reading our Terms of Service. We appreciate your interest in our content and hope you find our blog valuable for your learning and development journey.
+**Thank You**: We appreciate your visit to our blog. These terms ensure transparency about our static blog's nature, monetization methods, and limitations. We're committed to providing valuable educational content while maintaining clear expectations for both parties.
 
-*These terms are effective as of the date last updated above and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.*
+**Effective Date**: These terms are effective from the date last updated above and continue until modified or the website is discontinued.
