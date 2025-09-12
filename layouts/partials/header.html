@@ -1,17 +1,29 @@
 <header class="border-b border-gray-800">
     <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
-            <a href="{{ .Site.BaseURL | relURL }}" class="flex items-center space-x-3 text-2xl font-bold text-white px-3 py-2 rounded-lg hover:text-gray-200 transition">
-    
-<span>{{ .Site.Title }}</span>
-</a>
+            <a href="{{ .Site.BaseURL | relURL }}" class="flex items-center space-x-3 text-2xl font-bold text-white px-3 py-2 rounded-lg hover:text-gray-200 hover:scale-100 transition-transform duration-30">
+                <img src="https://avatars.githubusercontent.com/u/82930824?v=4" alt="Rajesh Bhola" class="w-12 h-12 rounded-full border-2 border-purple-400 hover:scale-100 transition-transform duration-300 cursor-pointer">
+                <span>{{ .Site.Title }}</span>
+            </a>
             
             <div class="hidden md:flex items-center space-x-6">
                 {{ range .Site.Menus.main }}
-                <a href="{{ .URL | relURL }}" class="text-gray-300 hover:text-purple-400 transition {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
+                <a href="{{ .URL | relURL }}" class="text-gray-300 hover:scale-110 transition-transform duration-30 hover:text-purple-400 transition {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
                     {{ .Name }}
                 </a>
                 {{ end }}
+                
+                <!-- Desktop Search -->
+                <div class="relative">
+                    <input 
+                        id="search-input" 
+                        type="text" 
+                        placeholder="Search posts..." 
+                        class="search-input w-64 px-4 py-2 text-sm"
+                    >
+                    <div id="search-results" class="hidden absolute top-full left-0 right-0 mt-2 bg-gray-800 border border-gray-700 rounded-lg shadow-lg max-h-96 overflow-y-auto z-50">
+                    </div>
+                </div>
                 <!-- YouTube Icon -->
                 <a href="https://youtube.com/YOUR_CHANNEL" target="_blank" rel="noopener" class="text-gray-300 hover:text-purple-400 transition">
                       <svg class="w-6 h-6 inline-block" fill="currentColor" viewBox="0 0 24 24">
@@ -37,6 +49,16 @@
         
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+            <!-- Mobile Search -->
+            <div class="mb-4">
+                <input 
+                    id="mobile-search-input" 
+                    type="text" 
+                    placeholder="Search posts..." 
+                    class="search-input w-full px-4 py-2 text-sm"
+                >
+            </div>
+            
             {{ range .Site.Menus.main }}
             <a href="{{ .URL | relURL }}" class="block text-gray-300 hover:text-purple-400 transition py-2 {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
                 {{ .Name }}

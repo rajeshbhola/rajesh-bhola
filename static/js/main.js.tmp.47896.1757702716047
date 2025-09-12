@@ -25,14 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileSearchInput.parentElement.appendChild(mobileResults);
     }
     
-    // Fetch search index with absolute path
-    const baseURL = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/') || '/';
-    const indexPath = baseURL.endsWith('/') ? baseURL + 'index.json' : baseURL + '/index.json';
-    
-    // For GitHub Pages or sites with subdirectories, use the site root
-    const siteRoot = window.location.pathname.includes('/rajesh-bhola/') ? '/rajesh-bhola/' : '/';
-    
-    fetch(siteRoot + 'index.json')
+    // Fetch search index
+    fetch('/index.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -41,30 +35,18 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             searchIndex = data;
+            console.log('Search index loaded:', searchIndex.length, 'items'); // Debug log
         })
         .catch(error => {
             console.error('Error loading search index:', error);
-            // Try alternative paths
-            const fallbackPaths = ['./index.json', '../index.json', '/index.json'];
-            
-            const tryFallback = (paths) => {
-                if (paths.length === 0) {
-                    console.error('Failed to load search index from all paths');
-                    return;
-                }
-                
-                fetch(paths[0])
-                    .then(response => {
-                        if (!response.ok) throw new Error('Not found');
-                        return response.json();
-                    })
-                    .then(data => {
-                        searchIndex = data;
-                    })
-                    .catch(() => tryFallback(paths.slice(1)));
-            };
-            
-            tryFallback(fallbackPaths);
+            // Try alternative path for development
+            return fetch('./index.json')
+                .then(response => response.json())
+                .then(data => {
+                    searchIndex = data;
+                    console.log('Search index loaded from ./index.json:', searchIndex.length, 'items');
+                })
+                .catch(err => console.error('Failed to load search index from alternative path:', err));
         });
     
     // Setup search for both desktop and mobile inputs
@@ -88,12 +70,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Check if search index is loaded
         if (!searchIndex || searchIndex.length === 0) {
+            console.log('Search index not loaded yet');
             if (resultsContainer) {
                 resultsContainer.innerHTML = '<p class="text-gray-400 p-3">Loading search...</p>';
                 resultsContainer.classList.remove('hidden');
             }
             return;
         }
+        
+        console.log('Searching for:', query); // Debug log
+        console.log('Search index has', searchIndex.length, 'items'); // Debug log
         
         const results = searchIndex.filter(item => {
             if (!item) return false;
@@ -112,8 +98,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const categoryMatch = item.categories && Array.isArray(item.categories) && 
                                 item.categories.some(cat => cat && cat.toLowerCase().includes(query));
             
+            console.log('Item:', item.title, 'Matches:', { titleMatch, contentMatch, tagMatch, categoryMatch });
+            
             return titleMatch || contentMatch || tagMatch || categoryMatch;
         });
+        
+        console.log('Found results:', results.length); // Debug log
         displayResults(results.slice(0, 5), resultsContainer);
     }
     
