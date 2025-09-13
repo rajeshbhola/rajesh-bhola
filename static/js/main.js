@@ -280,41 +280,83 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Copy code blocks to clipboard
 document.addEventListener('DOMContentLoaded', function() {
+    // Skip if we're on a single post page (let single.html handle it)
+    if (document.querySelector('.post-content')) {
+        return;
+    }
+
     document.querySelectorAll('pre code').forEach(block => {
         const pre = block.parentElement;
+
+        // Skip if copy button already exists
+        if (pre.querySelector('.copy-button')) {
+            return;
+        }
+
         const button = document.createElement('button');
-        
+
         button.className = 'copy-button';
         button.textContent = 'Copy';
         button.style.cssText = `
             position: absolute;
             top: 8px;
             right: 8px;
-            padding: 4px 8px;
-            background: rgba(127, 63, 245, 0.2);
-            border: 1px solid rgba(127, 63, 245, 0.3);
-            border-radius: 4px;
-            color: #a78bfa;
-            font-size: 12px;
+            padding: 8px 12px;
+            background: #7f3ff5;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            opacity: 0.8;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         `;
-        
-        button.addEventListener('click', async function() {
-            await navigator.clipboard.writeText(block.textContent);
-            button.textContent = 'Copied!';
-            button.style.background = 'rgba(34, 197, 94, 0.2)';
-            button.style.borderColor = 'rgba(34, 197, 94, 0.3)';
-            button.style.color = '#86efac';
-            
-            setTimeout(() => {
-                button.textContent = 'Copy';
-                button.style.background = 'rgba(127, 63, 245, 0.2)';
-                button.style.borderColor = 'rgba(127, 63, 245, 0.3)';
-                button.style.color = '#a78bfa';
-            }, 2000);
+
+        // Add hover effect
+        button.addEventListener('mouseenter', function() {
+            this.style.background = '#9333ea';
+            this.style.transform = 'translateY(-1px)';
+            this.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+            this.style.opacity = '1';
         });
-        
+
+        button.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('copied')) {
+                this.style.background = '#7f3ff5';
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+                this.style.opacity = '0.8';
+            }
+        });
+
+        button.addEventListener('click', async function() {
+            try {
+                await navigator.clipboard.writeText(block.textContent);
+                this.textContent = 'Copied!';
+                this.style.background = '#22c55e';
+                this.style.color = '#ffffff';
+                this.classList.add('copied');
+
+                setTimeout(() => {
+                    this.textContent = 'Copy';
+                    this.style.background = '#7f3ff5';
+                    this.style.color = '#ffffff';
+                    this.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                this.textContent = 'Failed';
+                this.style.background = '#ef4444';
+                setTimeout(() => {
+                    this.textContent = 'Copy';
+                    this.style.background = '#7f3ff5';
+                }, 2000);
+            }
+        });
+
         pre.style.position = 'relative';
         pre.appendChild(button);
     });
