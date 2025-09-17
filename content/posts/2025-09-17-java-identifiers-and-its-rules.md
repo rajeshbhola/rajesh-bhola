@@ -3,7 +3,7 @@ title: "Java Identifiers and its rules"
 date: 2025-09-17T18:26:00+05:30
 author: "Rajesh Bhola"
 categories: ["Java"]
-tags: ["Identifiers", "Naming Conventions"]
+tags: ["Identifiers", "Rules", "Naming Conventions"]
 summary: "A practical guide to Java identifiers covering rules, conventions, valid vs invalid examples, and best practices."
 draft: false
 ---
