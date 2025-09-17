@@ -1,4 +1,4 @@
 .text-5xl {
-    font-size: 3rem;
-    line-height: initial;
+    font-size: 3rem !important;
+    line-height: initial !important;
 }
