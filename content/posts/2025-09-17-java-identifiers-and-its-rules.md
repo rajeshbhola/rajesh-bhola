@@ -1,10 +1,10 @@
 ---
-title: "Java Identifiers: Rules, Conventions, and Best Practices"
+title: "Java Identifiers and its rules"
 date: 2025-09-17T18:26:00+05:30
 author: "Rajesh Bhola"
-categories: ["Java", "Best Practices"]
-tags: ["Identifiers", "Naming Conventions", "Java 9", "Variables", "Methods", "Classes", "Constants", "Packages", "Clean Code", "Style Guide"]
-summary: "A practical guide to Java identifiers covering rules, conventions, valid vs invalid examples, best practices, common pitfalls, and an interview-ready checklist."
+categories: ["Java"]
+tags: ["Identifiers", "Naming Conventions"]
+summary: "A practical guide to Java identifiers covering rules, conventions, valid vs invalid examples, and best practices."
 draft: false
 ---
 
