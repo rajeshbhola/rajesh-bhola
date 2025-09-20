@@ -1,12 +1,12 @@
 {{ define "main" }}
-<article class="max-w-none md:max-w-4xl mx-auto px-4 md:px-0">
+<article class="max-w-full md:max-w-4xl mx-auto px-0 sm:px-6 lg:px-8">
     <!-- Post Header -->
-    <header class="mb-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+    <header class="mb-8 text-center px-4 sm:px-0">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
             {{ .Title }}
         </h1>
         
-        <div class="text-gray-400 flex items-center justify-center gap-4 flex-wrap text-sm">
+        <div class="text-gray-400 flex items-center justify-center gap-2 sm:gap-4 flex-wrap text-xs sm:text-sm">
             <time>{{ .Date.Format "January 2, 2006" }}</time>
             <span>•</span>
             <span class="text-purple-400">{{ .Params.author | default .Site.Params.author }}</span>
@@ -42,7 +42,7 @@
     {{ partial "ad-banner.html" . }}
     
     <!-- Main Content -->
-    <div class="md:glass-card md:p-8 lg:p-12">
+    <div class="main-content-card p-0 sm:p-6 md:p-8 lg:p-12">
         <!-- Affiliate Disclaimer -->
         {{ partial "affiliate-disclaimer.html" . }}
         
@@ -54,7 +54,7 @@
         {{ partial "ad-in-content.html" . }}
         
         <!-- Categories and Tags Section -->
-        <div class="mt-8 pt-6 border-t border-gray-700">
+        <div class="mt-8 pt-6 border-t border-gray-700 px-4 sm:px-0">
             <!-- Categories -->
             {{ with .Params.categories }}
             <div class="mb-6">
@@ -89,7 +89,7 @@
             <!-- Sharing Options -->
             <div class="mb-6">
                 <h4 class="text-lg font-semibold mb-3 text-purple-400">Share this post</h4>
-                <div class="flex flex-wrap gap-3">
+                <div class="flex flex-wrap gap-2 sm:gap-3">
                     <!-- Copy Link -->
                     <button id="copy-link-btn" class="pagination-btn flex items-center gap-2 hover:bg-purple-600 transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +128,7 @@
     
     <!-- Author bio -->
     {{ if .Params.author }}
-    <div class="mt-12 glass-card p-6">
+    <div class="mt-12 author-bio-card p-4 sm:p-6">
         <div class="flex items-start gap-4">
             <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-purple-400 flex-shrink-0">
                 <img src="https://avatars.githubusercontent.com/u/82930824?v=4" alt="{{ .Params.author }}" class="w-full h-full object-cover">
@@ -142,14 +142,14 @@
     {{ end }}
     
     <!-- Navigation -->
-    <div class="mt-12 flex justify-between items-center">
+    <div class="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-4 sm:px-0">
         {{ with .PrevInSection }}
         <a href="{{ .Permalink }}" class="pagination-btn flex items-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
-            <span class="hidden md:inline">Previous:</span>
-            <span class="ml-1 text-purple-300">{{ .Title | truncate 30 }}</span>
+            <span class="hidden sm:inline">Previous:</span>
+            <span class="ml-1 text-purple-300 truncate max-w-[200px] sm:max-w-none">{{ .Title | truncate 30 }}</span>
         </a>
         {{ else }}
         <div></div>
@@ -157,8 +157,8 @@
         
         {{ with .NextInSection }}
         <a href="{{ .Permalink }}" class="pagination-btn flex items-center">
-            <span class="hidden md:inline">Next:</span>
-            <span class="ml-1 text-purple-300">{{ .Title | truncate 30 }}</span>
+            <span class="hidden sm:inline">Next:</span>
+            <span class="ml-1 text-purple-300 truncate max-w-[200px] sm:max-w-none">{{ .Title | truncate 30 }}</span>
             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -171,9 +171,9 @@
     <!-- Related posts -->
     {{ $related := .Site.RegularPages.Related . | first 3 }}
     {{ with $related }}
-    <div class="mt-12">
+    <div class="mt-12 px-4 sm:px-0">
         <h2 class="text-2xl font-bold mb-6 text-purple-400">Related Posts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {{ range . }}
                 {{ partial "post-card.html" . }}
             {{ end }}
@@ -296,7 +296,23 @@
     }
     
     /* Copy button styling */
-    
+    .copy-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 6px 10px;
+        background: #7f3ff5;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        opacity: 0;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
 
     .post-content pre:hover .copy-button {
         opacity: 1;
@@ -441,6 +457,32 @@
         backdrop-filter: blur(10px) !important;
         border: 1px solid rgba(255, 255, 255, 0.1) !important;
     }
+
+    /* Responsive glass cards - only on medium screens and up */
+    .main-content-card,
+    .author-bio-card {
+        background: transparent;
+        border: none;
+    }
+
+    @media (min-width: 768px) {
+        .main-content-card,
+        .author-bio-card {
+            background: rgba(30, 41, 59, 0.5) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content-card:hover,
+        .author-bio-card:hover {
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.7) !important;
+            box-shadow: 0 10px 30px rgba(127, 63, 245, 0.2);
+            border-color: rgba(127, 63, 245, 0.4);
+        }
+    }
     
     /* Progress bar - ensure it's visible */
     #reading-progress {
@@ -479,10 +521,37 @@
         color: #c084fc !important;
     }
 
+    /* Tablet responsive adjustments */
+    @media (max-width: 1024px) {
+        .post-content {
+            font-size: 1.05rem;
+        }
+
+        .post-content h1 { font-size: 2.25rem; }
+        .post-content h2 { font-size: 1.875rem; }
+        .post-content h3 { font-size: 1.5rem; }
+
+        .post-content pre {
+            padding: 1.25rem;
+            font-size: 0.8rem;
+        }
+    }
+
     /* Mobile responsive adjustments */
     @media (max-width: 768px) {
         .post-content {
             font-size: 1rem;
+            padding: 0 1rem;
+        }
+
+        /* Elements that should be full-width on mobile */
+        .post-content pre,
+        .post-content img,
+        .post-content figure,
+        .post-content blockquote,
+        .post-content table {
+            margin-left: -1rem;
+            margin-right: -1rem;
         }
         
         .post-content h1 { font-size: 2rem; }
@@ -491,7 +560,38 @@
         
         .post-content pre {
             padding: 1rem;
+            font-size: 0.8rem;
+            border-radius: 0;
+        }
+
+        .post-content table {
             font-size: 0.875rem;
+        }
+
+        .post-content blockquote {
+            padding: 1rem;
+            border-radius: 0;
+        }
+
+        .post-content img {
+            border-radius: 0;
+        }
+    }
+
+    /* Small mobile adjustments */
+    @media (max-width: 480px) {
+        .post-content {
+            font-size: 0.95rem;
+        }
+
+        .post-content h1 { font-size: 1.75rem; }
+        .post-content h2 { font-size: 1.5rem; }
+        .post-content h3 { font-size: 1.25rem; }
+        .post-content h4 { font-size: 1.125rem; }
+
+        .copy-button {
+            font-size: 9px;
+            padding: 4px 8px;
         }
     }
 </style>
@@ -545,26 +645,73 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.createElement('button');
         button.className = 'copy-button';
         button.textContent = 'Copy';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
 
-        button.addEventListener('click', function() {
+        // Add hover effects
+        button.addEventListener('mouseenter', function() {
+            this.style.opacity = '1';
+            this.style.background = '#9333ea';
+            this.style.transform = 'translateY(-1px)';
+        });
+
+        button.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('copied')) {
+                this.style.opacity = '0.8';
+                this.style.background = '#7f3ff5';
+                this.style.transform = 'translateY(0)';
+            }
+        });
+
+        button.addEventListener('click', async function() {
             const code = block.querySelector('code');
             if (code) {
-                navigator.clipboard.writeText(code.textContent).then(function() {
+                try {
+                    await navigator.clipboard.writeText(code.textContent);
                     button.textContent = 'Copied!';
                     button.classList.add('copied');
+                    button.style.background = '#22c55e';
+                    button.style.opacity = '1';
+
                     setTimeout(function() {
                         button.textContent = 'Copy';
                         button.classList.remove('copied');
-                    }, 2000);
-                }).catch(function(err) {
-                    console.error('Failed to copy text: ', err);
-                    button.textContent = 'Failed';
-                    button.style.background = '#ef4444';
-                    setTimeout(function() {
-                        button.textContent = 'Copy';
                         button.style.background = '#7f3ff5';
+                        button.style.opacity = '0.8';
                     }, 2000);
-                });
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+
+                    // Fallback for older browsers
+                    try {
+                        const textArea = document.createElement('textarea');
+                        textArea.value = code.textContent;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        textArea.style.top = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.focus();
+                        textArea.select();
+                        document.execCommand('copy');
+                        textArea.remove();
+
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        button.style.background = '#22c55e';
+
+                        setTimeout(function() {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                            button.style.background = '#7f3ff5';
+                        }, 2000);
+                    } catch (fallbackErr) {
+                        button.textContent = 'Failed';
+                        button.style.background = '#ef4444';
+                        setTimeout(function() {
+                            button.textContent = 'Copy';
+                            button.style.background = '#7f3ff5';
+                        }, 2000);
+                    }
+                }
             }
         });
 
