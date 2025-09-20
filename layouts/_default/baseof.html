@@ -232,6 +232,114 @@
             font-size: 3rem !important;
             line-height: initial !important;
         }
+
+        /* Dummy Advertisement Styles */
+        .dummy-ad {
+            background: linear-gradient(135deg, rgba(127, 63, 245, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border: 2px dashed rgba(127, 63, 245, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dummy-ad::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .dummy-ad:hover {
+            border-color: rgba(127, 63, 245, 0.5);
+            background: linear-gradient(135deg, rgba(127, 63, 245, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(127, 63, 245, 0.2);
+        }
+
+        .dummy-ad .ad-content {
+            text-align: center;
+            color: #9ca3af;
+            z-index: 1;
+            position: relative;
+        }
+
+        .dummy-ad h3, .dummy-ad h4 {
+            color: #a855f7;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .dummy-ad p {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.875rem;
+        }
+
+        .dummy-ad small {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Banner Ad Dimensions */
+        .banner-ad {
+            height: 90px;
+            min-width: 300px;
+            max-width: 728px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* In-Content Ad Dimensions */
+        .in-content-ad {
+            height: 250px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar Ad Dimensions */
+        .sidebar-ad {
+            height: 300px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Mobile responsive ad adjustments */
+        @media (max-width: 768px) {
+            .banner-ad {
+                height: 100px;
+                min-width: 280px;
+            }
+
+            .in-content-ad {
+                height: 200px;
+                width: 280px;
+            }
+
+            .sidebar-ad {
+                height: 200px;
+                width: 100%;
+            }
+
+            .dummy-ad h3, .dummy-ad h4 {
+                font-size: 1rem;
+            }
+
+            .dummy-ad p {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body class="text-gray-100">

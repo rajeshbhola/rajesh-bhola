@@ -1,4 +1,4 @@
-{{ if .Site.Params.googleAdSenseID }}
+{{ if and .Site.Params.googleAdSenseID (not (hasPrefix .Site.Params.googleAdSenseID "ca-pub-XXXXXXXXXX")) }}
 <!-- AdSense Banner Ad -->
 <div class="ad-container my-8 text-center">
   <div class="text-xs text-gray-400 mb-2">Advertisement</div>
@@ -11,5 +11,17 @@
   <script>
        (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
+</div>
+{{ else }}
+<!-- Dummy Banner Ad Placeholder -->
+<div class="ad-container my-8 text-center">
+  <div class="text-xs text-gray-400 mb-2">Advertisement</div>
+  <div class="dummy-ad banner-ad">
+    <div class="ad-content">
+      <h3>Your Ad Here</h3>
+      <p>728×90 Banner Advertisement</p>
+      <small>Contact us for advertising opportunities</small>
+    </div>
+  </div>
 </div>
 {{ end }}

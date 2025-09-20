@@ -1,5 +1,5 @@
 ---
-title: "Java Identifiers - Rules and Best Practices with Examples"
+title: "Identifiers in Java"
 date: 2025-09-17T18:26:00+05:30
 author: "Rajesh Bhola"
 categories: ["Java"]
