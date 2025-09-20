@@ -43,6 +43,8 @@ copyright = "© 2025 Rajesh Bhola ... All rights reserved."
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
   
 [markup]
   [markup.goldmark]
@@ -58,6 +60,21 @@ copyright = "© 2025 Rajesh Bhola ... All rights reserved."
   keywords = ["blog", "technology", "web development", "static site generator"]
   ogImage = "/images/og-image.jpg"
   twitterHandle = "@rajeshbhola"
+
+  # Sitemap settings for different content types
+  [params.seo.sitemap]
+    [params.seo.sitemap.posts]
+      changefreq = "weekly"
+      priority = 0.8
+    [params.seo.sitemap.pages]
+      changefreq = "monthly"
+      priority = 0.6
+    [params.seo.sitemap.categories]
+      changefreq = "weekly"
+      priority = 0.5
+    [params.seo.sitemap.tags]
+      changefreq = "weekly"
+      priority = 0.4
 
 [pagination]
 pagerSize = 9
