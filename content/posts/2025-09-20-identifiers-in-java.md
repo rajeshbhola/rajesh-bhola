@@ -1,6 +1,6 @@
 ---
 title: "Identifiers in Java"
-date: 2025-09-17T18:26:00+05:30
+date: 2025-09-20
 author: "Rajesh Bhola"
 categories: ["Java"]
 tags: [identifiers, rules, naming conventions]

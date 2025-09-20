@@ -1,8 +1,8 @@
 ---
 title: "Data Types in Java"
-date: 2023-05-17T09:00:00Z
+date: 2023-05-17
 author: "Rajesh Bhola"
-categories: ["Technology"]
+categories: ["Java"]
 tags: ["primitive data types", "type conversion", "type casting"]
 summary: "Learn Java data types with clear explanations and practical examples. Understand primitive types, type conversion, and best practices for choosing the right data type in your programs."
 draft: false

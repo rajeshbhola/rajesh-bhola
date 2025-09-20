@@ -1,6 +1,6 @@
 ---
 title: "Reserved Words in Java"
-date: 2025-09-20T09:00:00Z
+date: 2025-09-20
 author: "Rajesh Bhola"
 categories: ["Java"]
 tags: ["reserved words", "keywords", "reserved literals"]
