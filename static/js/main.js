@@ -165,68 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Filter and sort functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryFilter = document.querySelector('select[name="category"]');
-    const tagFilter = document.querySelector('select[name="tag"]');
-    const sortFilter = document.querySelector('select[name="sort"]');
-    
-    if (categoryFilter) {
-        categoryFilter.addEventListener('change', filterPosts);
-    }
-    
-    if (tagFilter) {
-        tagFilter.addEventListener('change', filterPosts);
-    }
-    
-    if (sortFilter) {
-        sortFilter.addEventListener('change', sortPosts);
-    }
-    
-    function filterPosts() {
-        const selectedCategory = categoryFilter ? categoryFilter.value : 'All Categories';
-        const selectedTag = tagFilter ? tagFilter.value : 'All Tags';
-        const posts = document.querySelectorAll('.post-card');
-        
-        posts.forEach(post => {
-            const postCategories = post.dataset.categories ? post.dataset.categories.split(',') : [];
-            const postTags = post.dataset.tags ? post.dataset.tags.split(',') : [];
-            
-            const categoryMatch = selectedCategory === 'All Categories' || 
-                                 postCategories.some(cat => cat.trim() === selectedCategory);
-            const tagMatch = selectedTag === 'All Tags' || 
-                           postTags.some(tag => tag.trim() === selectedTag);
-            
-            if (categoryMatch && tagMatch) {
-                post.style.display = 'block';
-            } else {
-                post.style.display = 'none';
-            }
-        });
-    }
-    
-    function sortPosts() {
-        const sortOrder = sortFilter ? sortFilter.value : 'Newest First';
-        const postsContainer = document.querySelector('.posts-grid');
-        if (!postsContainer) return;
-        
-        const posts = Array.from(document.querySelectorAll('.post-card'));
-        
-        posts.sort((a, b) => {
-            const dateA = new Date(a.dataset.date);
-            const dateB = new Date(b.dataset.date);
-            
-            if (sortOrder === 'Newest First') {
-                return dateB - dateA;
-            } else {
-                return dateA - dateB;
-            }
-        });
-        
-        // Clear and re-append sorted posts
-        posts.forEach(post => postsContainer.appendChild(post));
-    }
-});
 
 // Reading progress indicator
 document.addEventListener('DOMContentLoaded', function() {

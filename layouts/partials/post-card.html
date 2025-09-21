@@ -1,7 +1,4 @@
-<article class="glass-card p-6 post-card" 
-         data-categories="{{ delimit .Params.categories "," }}"
-         data-tags="{{ delimit .Params.tags "," }}"
-         data-date="{{ .Date.Format "2006-01-02" }}">
+<article class="glass-card p-6 post-card">
     <h2 class="text-xl font-bold mb-2">
         <a href="{{ .Permalink }}" class="hover:text-purple-400 transition">
             {{ .Title }}

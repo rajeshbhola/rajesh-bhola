@@ -6,35 +6,6 @@
     <p class="text-gray-400 text-lg">{{ .Site.Params.description }}</p>
 </div>
 
-<!-- Filters -->
-<div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-    <div class="flex flex-wrap gap-4">
-        <div class="flex items-center gap-2">
-            <label class="text-sm text-gray-400">Filter by:</label>
-            <select name="category" class="search-input w-40">
-                <option>All Categories</option>
-                {{ range .Site.Taxonomies.categories }}
-                <option value="{{ .Page.Title }}">{{ .Page.Title }}</option>
-                {{ end }}
-            </select>
-        </div>
-        
-        <select name="tag" class="search-input w-40">
-            <option>All Tags</option>
-            {{ range .Site.Taxonomies.tags }}
-            <option value="{{ .Page.Title }}">{{ .Page.Title }}</option>
-            {{ end }}
-        </select>
-    </div>
-    
-    <div class="flex items-center gap-2">
-        <label class="text-sm text-gray-400">Sort by:</label>
-        <select name="sort" class="search-input w-40">
-            <option>Newest First</option>
-            <option>Oldest First</option>
-        </select>
-    </div>
-</div>
 
 <!-- Top Banner Ad -->
 {{ partial "ad-banner.html" . }}
