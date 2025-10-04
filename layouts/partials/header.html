@@ -1,15 +1,25 @@
-<header class="border-b border-gray-800">
+<header class="sticky top-0 z-50 backdrop-blur-lg bg-gray-900/80 border-b border-purple-500/20 shadow-lg">
     <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
-            <a href="{{ .Site.BaseURL | relURL }}" class="flex items-center space-x-3 text-2xl font-bold text-white px-3 py-2 rounded-lg hover:text-gray-200 hover:scale-100 transition-transform duration-30">
-                <img src="https://avatars.githubusercontent.com/u/82930824?v=4" alt="Rajesh Bhola" class="w-12 h-12 rounded-full border-2 border-purple-400 hover:scale-100 transition-transform duration-300 cursor-pointer">
-                <span>{{ .Site.Title }}</span>
+            <a href="{{ .Site.BaseURL | relURL }}" class="flex items-center space-x-3 text-2xl font-bold text-white px-3 py-2 rounded-lg hover:text-gray-200 transition-all duration-300">
+                <img src="https://avatars.githubusercontent.com/u/82930824?v=4" alt="Rajesh Bhola" class="w-12 h-12 rounded-full border-2 border-purple-400 hover:border-pink-400 hover:scale-110 transition-all duration-300 cursor-pointer">
+                <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{{ .Site.Title }}</span>
             </a>
-            
-            <div class="hidden md:flex items-center space-x-6">
+
+            <div class="hidden md:flex items-center space-x-2">
+                {{ $currentPage := . }}
                 {{ range .Site.Menus.main }}
-                <a href="{{ .URL | relURL }}" class="text-gray-300 hover:scale-110 transition-transform duration-30 hover:text-purple-400 transition {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
+                {{ $isActive := false }}
+                {{ if eq .URL "/" }}
+                    {{ $isActive = $currentPage.IsHome }}
+                {{ else }}
+                    {{ $isActive = or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+                {{ end }}
+                <a href="{{ .URL | relURL }}" class="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 rounded-lg {{ if $isActive }}text-white bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30{{ else }}hover:bg-purple-500/10{{ end }}">
                     {{ .Name }}
+                    {{ if $isActive }}
+                    <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400"></span>
+                    {{ end }}
                 </a>
                 {{ end }}
                 
@@ -51,16 +61,23 @@
         <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
             <!-- Mobile Search -->
             <div class="mb-4">
-                <input 
-                    id="mobile-search-input" 
-                    type="text" 
-                    placeholder="Search posts..." 
+                <input
+                    id="mobile-search-input"
+                    type="text"
+                    placeholder="Search posts..."
                     class="search-input w-full px-4 py-2 text-sm"
                 >
             </div>
-            
+
+            {{ $currentPage := . }}
             {{ range .Site.Menus.main }}
-            <a href="{{ .URL | relURL }}" class="block text-gray-300 hover:text-purple-400 transition py-2 {{ if $.IsMenuCurrent "main" . }}text-purple-400{{ end }}">
+            {{ $isActive := false }}
+            {{ if eq .URL "/" }}
+                {{ $isActive = $currentPage.IsHome }}
+            {{ else }}
+                {{ $isActive = or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}
+            {{ end }}
+            <a href="{{ .URL | relURL }}" class="block px-4 py-3 rounded-lg text-gray-300 hover:text-white transition-all duration-300 {{ if $isActive }}text-white bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30{{ else }}hover:bg-purple-500/10{{ end }}">
                 {{ .Name }}
             </a>
             {{ end }}    

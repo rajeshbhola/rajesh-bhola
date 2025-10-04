@@ -6,7 +6,7 @@ copyright = "© 2025 Rajesh Bhola ... All rights reserved."
 
 [params]
   author = "Rajesh Bhola"
-  description = "Discover our most recent articles and insights"
+  description = "Discover my most recent articles"
   
   # Google Analytics
   googleAnalytics = "G-XXXXXXXXXX"  # Replace with your GA4 tracking ID

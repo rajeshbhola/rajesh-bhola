@@ -21,13 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mobileSearchInput && !document.getElementById('mobile-search-results')) {
         const mobileResults = document.createElement('div');
         mobileResults.id = 'mobile-search-results';
-        mobileResults.className = 'hidden mt-2 bg-gray-800 border border-gray-700 rounded-lg shadow-lg max-h-64 overflow-y-auto';
+        mobileResults.className = 'hidden mt-2 rounded-lg shadow-2xl max-h-96 overflow-y-auto';
+        mobileResults.style.cssText = `
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(127, 63, 245, 0.3);
+        `;
         mobileSearchInput.parentElement.appendChild(mobileResults);
     }
-    
-    // Fetch search index with absolute path
-    const baseURL = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/') || '/';
-    const indexPath = baseURL.endsWith('/') ? baseURL + 'index.json' : baseURL + '/index.json';
     
     // For GitHub Pages or sites with subdirectories, use the site root
     const siteRoot = window.location.pathname.includes('/rajesh-bhola/') ? '/rajesh-bhola/' : '/';
@@ -114,32 +115,75 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return titleMatch || contentMatch || tagMatch || categoryMatch;
         });
-        displayResults(results.slice(0, 5), resultsContainer);
+        displayResults(results, resultsContainer, query);
     }
-    
-    function displayResults(results, resultsContainer) {
+
+    function displayResults(results, resultsContainer, query) {
         if (!resultsContainer) return;
-        
+
         if (results.length === 0) {
-            resultsContainer.innerHTML = '<p class="text-gray-400 p-3">No results found</p>';
+            resultsContainer.innerHTML = `
+                <div class="p-6 text-center">
+                    <svg class="w-16 h-16 mx-auto mb-3 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-gray-400 font-medium">No results found</p>
+                    <p class="text-gray-500 text-sm mt-1">Try different keywords</p>
+                </div>
+            `;
             resultsContainer.classList.remove('hidden');
             return;
         }
-        
-        const html = results.map(item => `
-            <a href="${item.permalink}" class="block p-3 hover:bg-purple-900/20 rounded transition">
-                <h3 class="font-bold text-purple-400">${item.title}</h3>
-                <p class="text-sm text-gray-400 mt-1">${truncate(item.content, 100)}</p>
-                <div class="flex gap-2 mt-2">
-                    ${item.tags ? item.tags.map(tag => `
-                        <span class="text-xs px-2 py-1 bg-purple-900/30 rounded-full">${tag}</span>
-                    `).join('') : ''}
+
+        const html = `
+            <div class="p-2">
+                <div class="flex items-center justify-between px-3 py-2 mb-2">
+                    <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                        Found ${results.length} result${results.length > 1 ? 's' : ''}
+                    </span>
                 </div>
-            </a>
-        `).join('');
-        
+                ${results.map((item, index) => `
+                    <a href="${item.permalink}" class="search-result-item group block p-4 mb-2 rounded-lg transition-all duration-300" style="
+                        background: linear-gradient(135deg, rgba(127, 63, 245, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+                        border: 1px solid rgba(127, 63, 245, 0.1);
+                    " onmouseover="this.style.background='linear-gradient(135deg, rgba(127, 63, 245, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%)'; this.style.borderColor='rgba(127, 63, 245, 0.3)'; this.style.transform='translateX(4px)'" onmouseout="this.style.background='linear-gradient(135deg, rgba(127, 63, 245, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%)'; this.style.borderColor='rgba(127, 63, 245, 0.1)'; this.style.transform='translateX(0)'">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 mt-1">
+                                <div class="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm" style="
+                                    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+                                    color: white;
+                                ">
+                                    ${index + 1}
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-white mb-1 group-hover:text-purple-300 transition-colors line-clamp-2">
+                                    ${highlightText(item.title, query)}
+                                </h3>
+                                <p class="text-sm text-gray-400 line-clamp-2">
+                                    ${truncate(stripHtml(item.content), 120)}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                `).join('')}
+            </div>
+        `;
+
         resultsContainer.innerHTML = html;
         resultsContainer.classList.remove('hidden');
+    }
+
+    function highlightText(text, query) {
+        if (!query || !text) return text;
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<mark style="background: rgba(168, 85, 247, 0.3); color: #fff; padding: 2px 4px; border-radius: 3px;">$1</mark>');
+    }
+
+    function stripHtml(html) {
+        const tmp = document.createElement('div');
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || '';
     }
     
     // Close search results when clicking outside
