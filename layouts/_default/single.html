@@ -1,38 +1,47 @@
 {{ define "main" }}
+{{ $colors := slice "bg-gradient-to-br from-purple-500 to-pink-500" "bg-gradient-to-br from-blue-500 to-cyan-500" "bg-gradient-to-br from-green-500 to-emerald-500" "bg-gradient-to-br from-orange-500 to-red-500" "bg-gradient-to-br from-indigo-500 to-purple-500" "bg-gradient-to-br from-rose-500 to-pink-500" }}
+{{ $index := mod .Date.Unix (len $colors) }}
+{{ $color := index $colors $index }}
+
+<!-- Hero Banner with Gradient Background -->
+<div class="{{ $color }} relative overflow-hidden mb-8">
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+    <div class="relative max-w-full md:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
+        <div class="text-center">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white drop-shadow-lg" style="line-height: 1.4; padding-bottom: 0.25rem;">
+                {{ .Title }}
+            </h1>
+
+            <div class="text-gray-200 flex items-center justify-center gap-2 sm:gap-4 flex-wrap text-sm sm:text-base mb-6">
+                <time>{{ .Date.Format "January 2, 2006" }}</time>
+                <span>•</span>
+                <span class="font-semibold">{{ .Params.author | default .Site.Params.author }}</span>
+                <span>•</span>
+                <span>{{ .ReadingTime }} min read</span>
+            </div>
+
+            <div class="flex justify-center flex-wrap gap-2">
+                {{ with .Params.categories }}
+                    {{ range . }}
+                    <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="bg-white bg-opacity-20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm hover:bg-opacity-30 transition">
+                        {{ . }}
+                    </a>
+                    {{ end }}
+                {{ end }}
+
+                {{ with .Params.tags }}
+                    {{ range . }}
+                    <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/" class="bg-white bg-opacity-20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm hover:bg-opacity-30 transition">
+                        {{ . }}
+                    </a>
+                    {{ end }}
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</div>
+
 <article class="max-w-full md:max-w-4xl mx-auto px-0 sm:px-6 lg:px-8">
-    <!-- Post Header -->
-    <header class="mb-8 text-center px-4 sm:px-0">
-        <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
-            {{ .Title }}
-        </h1>
-        
-        <div class="text-gray-400 flex items-center justify-center gap-2 sm:gap-4 flex-wrap text-xs sm:text-sm">
-            <time>{{ .Date.Format "January 2, 2006" }}</time>
-            <span>•</span>
-            <span class="text-purple-400">{{ .Params.author | default .Site.Params.author }}</span>
-            <span>•</span>
-            <span>{{ .ReadingTime }} min read</span>
-        </div>
-        
-        <div class="mt-4 flex justify-center flex-wrap gap-2">
-            {{ with .Params.categories }}
-                {{ range . }}
-                <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
-                    {{ . }}
-                </a>
-                {{ end }}
-            {{ end }}
-            
-            {{ with .Params.tags }}
-                {{ range . }}
-                <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
-                    {{ . }}
-                </a>
-                {{ end }}
-            {{ end }}
-        </div>
-    </header>
-    
     <!-- Reading progress bar -->
     <div class="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
         <div id="reading-progress" class="h-full bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-100" style="width: 0%"></div>
@@ -40,7 +49,29 @@
     
     <!-- Top Banner Ad -->
     {{ partial "ad-banner.html" . }}
-    
+
+    <!-- Table of Contents -->
+    {{ if .TableOfContents }}
+    <div id="toc-container" class="toc-card mb-8 px-4 sm:px-0">
+        <button id="toc-toggle" class="toc-toggle-btn w-full flex items-center justify-between p-4 rounded-lg transition-all">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                </svg>
+                <span class="font-semibold text-lg text-purple-400">Table of Contents</span>
+            </div>
+            <svg id="toc-chevron" class="w-5 h-5 text-purple-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+        </button>
+        <div id="toc-content" class="toc-content overflow-hidden transition-all duration-300" style="max-height: 0;">
+            <div class="p-4 pt-0">
+                {{ .TableOfContents }}
+            </div>
+        </div>
+    </div>
+    {{ end }}
+
     <!-- Main Content -->
     <div class="main-content-card p-0 sm:p-6 md:p-8 lg:p-12">
         <!-- Affiliate Disclaimer -->
@@ -484,6 +515,61 @@
         }
     }
     
+    /* Table of Contents styling */
+    .toc-card {
+        background: rgba(30, 41, 59, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(127, 63, 245, 0.3);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .toc-toggle-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #e5e7eb;
+    }
+
+    .toc-toggle-btn:hover {
+        background: rgba(127, 63, 245, 0.1);
+    }
+
+    #toc-content nav {
+        margin: 0;
+    }
+
+    #toc-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    #toc-content li {
+        margin: 0.5rem 0;
+    }
+
+    #toc-content li ul {
+        padding-left: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    #toc-content a {
+        color: #d1d5db;
+        text-decoration: none;
+        transition: color 0.2s;
+        display: block;
+        padding: 0.25rem 0;
+    }
+
+    #toc-content a:hover {
+        color: #a855f7;
+    }
+
+    #toc-chevron.rotated {
+        transform: rotate(180deg);
+    }
+
     /* Progress bar - ensure it's visible */
     #reading-progress {
         background: linear-gradient(to right, #a855f7, #ec4899) !important;
@@ -598,6 +684,25 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Table of Contents toggle
+    const tocToggle = document.getElementById('toc-toggle');
+    const tocContent = document.getElementById('toc-content');
+    const tocChevron = document.getElementById('toc-chevron');
+
+    if (tocToggle && tocContent) {
+        tocToggle.addEventListener('click', function() {
+            const isOpen = tocContent.style.maxHeight && tocContent.style.maxHeight !== '0px';
+
+            if (isOpen) {
+                tocContent.style.maxHeight = '0';
+                tocChevron.classList.remove('rotated');
+            } else {
+                tocContent.style.maxHeight = tocContent.scrollHeight + 'px';
+                tocChevron.classList.add('rotated');
+            }
+        });
+    }
+
     // Reading progress bar
     const progressBar = document.getElementById('reading-progress');
     const backToTopBtn = document.getElementById('back-to-top');

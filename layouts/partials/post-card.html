@@ -1,9 +1,18 @@
-<article class="glass-card p-6 post-card">
-    <h2 class="text-xl font-bold mb-2">
-        <a href="{{ .Permalink }}" class="hover:text-purple-400 transition">
-            {{ .Title }}
-        </a>
-    </h2>
+{{ $colors := slice "bg-gradient-to-br from-purple-500 to-pink-500" "bg-gradient-to-br from-blue-500 to-cyan-500" "bg-gradient-to-br from-green-500 to-emerald-500" "bg-gradient-to-br from-orange-500 to-red-500" "bg-gradient-to-br from-indigo-500 to-purple-500" "bg-gradient-to-br from-rose-500 to-pink-500" }}
+{{ $index := mod .Date.Unix (len $colors) }}
+{{ $color := index $colors $index }}
+<article class="glass-card overflow-hidden post-card">
+    <div class="{{ $color }} h-32 flex items-center justify-center">
+        <div class="text-white text-4xl font-bold opacity-20">
+            {{ substr .Title 0 1 | upper }}
+        </div>
+    </div>
+    <div class="p-6">
+        <h2 class="text-xl font-bold mb-2">
+            <a href="{{ .Permalink }}" class="hover:text-purple-400 transition">
+                {{ .Title }}
+            </a>
+        </h2>
     
     <div class="text-sm text-gray-400 mb-3">
         <time>{{ .Date.Format "2006-01-02" }}</time> • 
@@ -14,21 +23,22 @@
         {{ .Summary | plainify | truncate 150 }}
     </p>
     
-    <div class="flex flex-wrap gap-2">
-        {{ with .Params.categories }}
-            {{ range . }}
-            <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
-                {{ . }}
-            </a>
+        <div class="flex flex-wrap gap-2">
+            {{ with .Params.categories }}
+                {{ range . }}
+                <a href="{{ $.Site.BaseURL }}categories/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
+                    {{ . }}
+                </a>
+                {{ end }}
             {{ end }}
-        {{ end }}
-        
-        {{ with .Params.tags }}
-            {{ range . }}
-            <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
-                {{ . }}
-            </a>
+
+            {{ with .Params.tags }}
+                {{ range . }}
+                <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}/" class="tag-pill text-purple-300 hover:text-white">
+                    {{ . }}
+                </a>
+                {{ end }}
             {{ end }}
-        {{ end }}
+        </div>
     </div>
 </article>
