@@ -1,0 +1,19 @@
+{{- $content := .Inner | replaceRE "\\r\\n" "\n" | replaceRE "\\r" "\n" | strings.TrimSpace -}}
+{{- $contentB64 := $content | base64Encode -}}
+{{- $format := .Get "format" | default "svg" -}}
+{{- $alt := .Get "alt" | default "PlantUML Diagram" -}}
+{{- $id := md5 $content -}}
+
+<div id="p{{ $id }}" style="text-align: center; margin: 20px 0;">
+  <img alt="{{ $alt }}" style="max-width: 100%; background: white; padding: 10px; border-radius: 8px;" />
+</div>
+<script src="https://cdn.jsdelivr.net/npm/pako@2/dist/pako.min.js"></script>
+<script>
+(function(){
+var c=document.getElementById('p{{ $id }}');
+var i=c.querySelector('img');
+function e6(b){if(b<10)return String.fromCharCode(48+b);b-=10;if(b<26)return String.fromCharCode(65+b);b-=26;if(b<26)return String.fromCharCode(97+b);b-=26;return b==0?'-':b==1?'_':'?';}
+function e64(d){var r='';for(var i=0;i<d.length;i+=3){var b1=d.charCodeAt(i),b2=i+1<d.length?d.charCodeAt(i+1):0,b3=i+2<d.length?d.charCodeAt(i+2):0;var c1=b1>>2,c2=((b1&3)<<4)|(b2>>4),c3=((b2&15)<<2)|(b3>>6),c4=b3&63;r+=e6(c1)+e6(c2)+e6(c3)+e6(c4);}return r;}
+setTimeout(function(){if(typeof pako!=='undefined'){var s=atob('{{$contentB64}}');var z=pako.deflateRaw(s);i.src='https://www.plantuml.com/plantuml/{{$format}}/'+e64(String.fromCharCode.apply(null,z));}},100);
+})();
+</script>

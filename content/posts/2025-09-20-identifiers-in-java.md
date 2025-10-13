@@ -12,6 +12,15 @@ draft: false
 
 ## What Are Java Identifiers?
 
+{{< plantuml format="png" alt="Sequence Diagram" class="my-diagram" >}}
+@startuml
+participant User
+participant System
+User -> System: Request
+System --> User: Response
+@enduml
+{{< /plantuml >}}
+
 In Java, identifiers are names we give to program components like classes, methods, variables, packages, and interfaces. These names act as labels that help us reference and use different parts of our code. Think of identifiers as the "names" you create to identify elements in your program.
 
 ## Rules for Java Identifiers

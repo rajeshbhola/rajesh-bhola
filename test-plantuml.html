@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PlantUML Test</title>
+</head>
+<body style="background: #1a1a1a; color: white; padding: 20px; font-family: Arial;">
+    <h1>PlantUML Diagram Test</h1>
+
+    <div id="test-diagram" style="margin: 20px 0;">
+        <div class="loading" style="padding: 20px; text-align: center; color: #666; background: rgba(255,255,255,0.05); border-radius: 8px;">
+            Loading diagram...
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script>
+        // Your PlantUML diagram source
+        const source = `@startuml
+skinparam classAttributeIconSize 0
+
+class Object {
+}
+
+class Throwable {
+  +getMessage(): String
+  +printStackTrace(): void
+}
+
+class Exception {
+}
+
+class Error {
+}
+
+class IOException {
+}
+
+class SQLException {
+}
+
+class RuntimeException {
+}
+
+class NullPointerException {
+}
+
+class ArrayIndexOutOfBoundsException {
+}
+
+class ArithmeticException {
+}
+
+Object <|-- Throwable
+Throwable <|-- Exception
+Throwable <|-- Error
+Exception <|-- IOException
+Exception <|-- SQLException
+Exception <|-- RuntimeException
+RuntimeException <|-- NullPointerException
+RuntimeException <|-- ArrayIndexOutOfBoundsException
+RuntimeException <|-- ArithmeticException
+
+note right of Exception
+  Checked Exceptions
+  Must be handled
+end note
+
+note right of RuntimeException
+  Unchecked Exceptions
+  Runtime failures
+end note
+
+note right of Error
+  System-level errors
+  Should not be caught
+end note
+
+@enduml`;
+
+        function initPlantUML() {
+            if (typeof pako === 'undefined') {
+                setTimeout(initPlantUML, 100);
+                return;
+            }
+
+            const container = document.getElementById('test-diagram');
+            const loadingDiv = container.querySelector('.loading');
+
+            try {
+                console.log('Source:', source);
+
+                function encode64(data) {
+                    let r = "";
+                    for (let i = 0; i < data.length; i += 3) {
+                        if (i + 2 == data.length) {
+                            r += append3bytes(data.charCodeAt(i), data.charCodeAt(i + 1), 0);
+                        } else if (i + 1 == data.length) {
+                            r += append3bytes(data.charCodeAt(i), 0, 0);
+                        } else {
+                            r += append3bytes(data.charCodeAt(i), data.charCodeAt(i + 1), data.charCodeAt(i + 2));
+                        }
+                    }
+                    return r;
+                }
+
+                function append3bytes(b1, b2, b3) {
+                    const c1 = b1 >> 2;
+                    const c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
+                    const c3 = ((b2 & 0xF) << 2) | (b3 >> 6);
+                    const c4 = b3 & 0x3F;
+                    let r = "";
+                    r += encode6bit(c1 & 0x3F);
+                    r += encode6bit(c2 & 0x3F);
+                    r += encode6bit(c3 & 0x3F);
+                    r += encode6bit(c4 & 0x3F);
+                    return r;
+                }
+
+                function encode6bit(b) {
+                    if (b < 10) return String.fromCharCode(48 + b);
+                    b -= 10;
+                    if (b < 26) return String.fromCharCode(65 + b);
+                    b -= 26;
+                    if (b < 26) return String.fromCharCode(97 + b);
+                    b -= 26;
+                    if (b == 0) return '-';
+                    if (b == 1) return '_';
+                    return '?';
+                }
+
+                const compressed = pako.deflateRaw(source);
+                console.log('Compressed length:', compressed.length);
+
+                const compressedStr = String.fromCharCode.apply(null, compressed);
+                const encoded = encode64(compressedStr);
+                console.log('Encoded:', encoded.substring(0, 50) + '...');
+
+                const url = 'https://www.plantuml.com/plantuml/svg/' + encoded;
+                console.log('URL:', url);
+
+                const img = document.createElement('img');
+                img.alt = 'Test Diagram';
+                img.style.maxWidth = '100%';
+                img.style.background = 'white';
+                img.style.padding = '20px';
+                img.style.borderRadius = '8px';
+                img.src = url;
+
+                img.onload = function() {
+                    console.log('✓ Diagram loaded successfully!');
+                    loadingDiv.style.display = 'none';
+                    container.appendChild(img);
+                };
+
+                img.onerror = function(e) {
+                    console.error('✗ Failed to load diagram');
+                    loadingDiv.innerHTML = '<div style="color: red;">Error loading diagram. Check console.</div>';
+                };
+            } catch (e) {
+                console.error('Exception:', e);
+                loadingDiv.innerHTML = '<div style="color: red;">Error: ' + e.message + '</div>';
+            }
+        }
+
+        initPlantUML();
+    </script>
+</body>
+</html>

@@ -7,17 +7,21 @@ copyright = "© 2025 Rajesh Bhola ... All rights reserved."
 [params]
   author = "Rajesh Bhola"
   description = "Discover my most recent articles"
-  
+
   # Google Analytics
   googleAnalytics = "G-XXXXXXXXXX"  # Replace with your GA4 tracking ID
-  
+
   # Google AdSense
   googleAdSenseID = "ca-pub-XXXXXXXXXX"  # Replace with your AdSense Publisher ID
-  
+
   # Affiliate Settings
   [params.affiliate]
     amazon = "your-amazon-tag"  # Replace with your Amazon Associates tag
     disclaimer = "This site contains affiliate links. We may earn a commission if you click on a link and make a purchase."
+
+  # PlantUML Settings
+  [params.plantuml]
+    server = "http://www.plantuml.com/plantuml"  # Plantuml server (supports base64 encoding)
   
 [menu]
   [[menu.main]]
@@ -50,6 +54,20 @@ copyright = "© 2025 Rajesh Bhola ... All rights reserved."
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    style = "monokai"
+  # Enable PlantUML diagrams
+  [markup.goldmark.extensions]
+    definitionList = true
+    footnote = true
+    linkify = true
+    strikethrough = true
+    table = true
+    taskList = true
+    typographer = true
       
 [sitemap]
   changefreq = "weekly"
