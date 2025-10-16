@@ -2,10 +2,7 @@
 {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
 {{ if eq $paginator.PageNumber 1 }}
 <!-- Hero Section -->
-<section class="relative overflow-hidden mb-16 sm:mx-6 lg:mx-8 sm:rounded-2xl" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.6) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(127, 63, 245, 0.2);">
-    <!-- Animated gradient background -->
-    <div class="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-500 opacity-20 sm:rounded-2xl"></div>
-    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 via-purple-500 to-pink-500 opacity-20 animate-pulse sm:rounded-2xl"></div>
+<section class="relative overflow-hidden mb-16 sm:mx-6 lg:mx-8 sm:rounded-2xl" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.5) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(127, 63, 245, 0.2);">
 
     <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 md:py-16">
         <div class="text-center">
@@ -49,9 +46,6 @@
         </div>
     </div>
 
-    <!-- Decorative elements -->
-    <div class="absolute top-10 left-10 w-20 h-20 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
-    <div class="absolute bottom-10 right-10 w-32 h-32 bg-pink-500 rounded-full opacity-20 blur-3xl"></div>
 </section>
 
 <!-- Section title for posts -->
