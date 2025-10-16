@@ -1,4 +1,6 @@
 {{ define "main" }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
+{{ if eq $paginator.PageNumber 1 }}
 <!-- Hero Section -->
 <section class="relative overflow-hidden mb-16 sm:mx-6 lg:mx-8 sm:rounded-2xl" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.6) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(127, 63, 245, 0.2);">
     <!-- Animated gradient background -->
@@ -58,13 +60,13 @@
         Latest Posts
     </h2>
 </div>
+{{ end }}
 
 <!-- Top Banner Ad -->
 {{ partial "ad-banner.html" . }}
 
 <!-- Posts Grid -->
 <div class="posts-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-    {{ $paginator := .Paginate (where .Site.RegularPages "Type" "posts") }}
     {{ range $index, $post := $paginator.Pages }}
         {{ partial "post-card.html" $post }}
         
